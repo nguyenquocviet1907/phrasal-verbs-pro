@@ -31,17 +31,36 @@ function trackVisit(){
 }
 function applyTheme(){document.documentElement.dataset.theme=meta.theme;$('#themeBtn').textContent=meta.theme==='dark'?'☀️':'🌙';}
 
-/* ---------- audio (Web Speech API) ---------- */
-function speak(text){
+/* ---------- audio: pre-recorded US male voice (MP3), Web Speech API fallback ---------- */
+const VERB_AUDIO_IDX={}, EX_AUDIO_IDX={};
+PHRASAL_VERBS.forEach((w,i)=>{VERB_AUDIO_IDX[w.v.toLowerCase()]=i+1; EX_AUDIO_IDX[w.e.toLowerCase()]=i+1;});
+let curAudioEl=null;
+function stopAudio(){ try{ if(curAudioEl){curAudioEl.pause(); curAudioEl=null;} speechSynthesis.cancel(); }catch(e){} }
+function speakFallback(text){
   try{
     speechSynthesis.cancel();
     const u=new SpeechSynthesisUtterance(text);
     u.lang='en-US'; u.rate=0.92; u.pitch=1;
     const vs=speechSynthesis.getVoices().filter(v=>v.lang&&v.lang.toLowerCase().startsWith('en'));
-    const pick=vs.find(v=>/google us english/i.test(v.name))||vs.find(v=>/en[-_]us/i.test(v.lang))||vs[0];
+    const pick=vs.find(v=>/google us english/i.test(v.name))||vs.find(v=>/david|guy|mark|daniel|alex/i.test(v.name))||vs.find(v=>/en[-_]us/i.test(v.lang))||vs[0];
     if(pick)u.voice=pick;
     speechSynthesis.speak(u);
   }catch(e){alert('Trình duyệt không hỗ trợ phát âm thanh.');}
+}
+function speak(text){
+  const t=String(text).toLowerCase();
+  let path=null;
+  if(VERB_AUDIO_IDX[t]) path='audio/pv'+String(VERB_AUDIO_IDX[t]).padStart(3,'0')+'.mp3';
+  else if(EX_AUDIO_IDX[t]) path='audio/ex'+String(EX_AUDIO_IDX[t]).padStart(3,'0')+'.mp3';
+  if(!path){ speakFallback(text); return; }
+  try{
+    stopAudio();
+    const a=new Audio(path);
+    curAudioEl=a;
+    a.onerror=()=>speakFallback(text);
+    const p=a.play();
+    if(p&&p.catch)p.catch(()=>speakFallback(text));
+  }catch(e){ speakFallback(text); }
 }
 if('speechSynthesis' in window) speechSynthesis.getVoices();
 
