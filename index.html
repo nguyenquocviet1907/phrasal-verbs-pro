@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phrasal Verbs Pro — Học 200 cụm động từ thông dụng</title>
+<meta name="description" content="Học 200 phrasal verbs thông dụng nhất qua flashcard, quiz, điền từ, ghép cặp, luyện nghe và ôn tập nhắc lại ngắt quãng.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand" data-nav="home"><span class="brand-emoji">🚀</span><span class="brand-name">Phrasal Verbs <b>Pro</b></span></div>
+    <nav class="nav" id="mainNav">
+      <button data-nav="home" class="nav-btn active">🏠 Trang chủ</button>
+      <button data-nav="dict" class="nav-btn">📖 Từ điển</button>
+      <button data-nav="flash" class="nav-btn">🃏 Flashcard</button>
+      <button data-nav="quiz" class="nav-btn">✏️ Trắc nghiệm</button>
+      <button data-nav="fill" class="nav-btn">⌨️ Gõ từ</button>
+      <button data-nav="match" class="nav-btn">🧩 Ghép cặp</button>
+      <button data-nav="listen" class="nav-btn">🔊 Luyện nghe</button>
+      <button data-nav="review" class="nav-btn">🔁 Ôn tập <span class="badge" id="reviewBadge" hidden></span></button>
+      <button data-nav="stats" class="nav-btn">📊 Thống kê</button>
+    </nav>
+    <button class="theme-btn" id="themeBtn" title="Chế độ tối/sáng">🌙</button>
+    <button class="menu-btn" id="menuBtn" title="Menu">☰</button>
+  </div>
+</header>
+
+<main id="app">
+  <section class="view active" id="view-home"></section>
+  <section class="view" id="view-dict"></section>
+  <section class="view" id="view-flash"></section>
+  <section class="view" id="view-quiz"></section>
+  <section class="view" id="view-fill"></section>
+  <section class="view" id="view-match"></section>
+  <section class="view" id="view-listen"></section>
+  <section class="view" id="view-review"></section>
+  <section class="view" id="view-stats"></section>
+</main>
+
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" id="modalBox"></div>
+</div>
+
+<footer class="footer">
+  <p>💡 Mẹo: bật loa để nghe phát âm mỗi cụm từ — lặp lại thành tiếng sẽ nhớ lâu hơn!</p>
+  <p class="tiny">Phrasal Verbs Pro · 200 cụm động từ thông dụng · Dữ liệu lưu trên trình duyệt của bạn</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
