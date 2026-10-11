@@ -62,6 +62,8 @@ function speak(text){
     if(p&&p.catch)p.catch(()=>speakFallback(text));
   }catch(e){ speakFallback(text); }
 }
+function speakVerb(i){ speak(PHRASAL_VERBS[i].v); }
+function speakEx(i){ speak(PHRASAL_VERBS[i].e); }
 if('speechSynthesis' in window) speechSynthesis.getVoices();
 
 /* ---------- navigation ---------- */
@@ -100,7 +102,7 @@ function openWord(i){
       <div class="modal-mean">${esc(w.m)}</div>
       <div class="modal-usage">📌 <b>Cách dùng:</b> ${esc(w.u)}</div>
       <div class="modal-ex">
-        <div class="en">"${esc(w.e)}" <button class="speak-btn" onclick="speak(${JSON.stringify(w.e)})" title="Nghe câu ví dụ">🔊</button></div>
+        <div class="en">"${esc(w.e)}" <button class="speak-btn" onclick="speakEx(${i})" title="Nghe câu ví dụ">🔊</button></div>
         <div class="vi">${esc(w.ev)}</div>
       </div>
       <div class="sub">🏷️ ${TOPICS[w.t]} · 📶 Mức độ: <b>${lvl}</b></div>
@@ -150,7 +152,7 @@ function renderHome(){
           <div class="modal-ex"><div class="en">"${esc(w.e)}"</div><div class="vi">${esc(w.ev)}</div></div>
           <div class="modal-actions">
             <button class="btn btn-primary btn-sm" onclick="openWord(${wotd})">Xem chi tiết</button>
-            <button class="btn btn-ghost btn-sm" onclick="speak(${JSON.stringify(w.e)})">🔊 Nghe ví dụ</button>
+            <button class="btn btn-ghost btn-sm" onclick="speakEx(${wotd})">🔊 Nghe ví dụ</button>
           </div>
         </div>
       </div>
